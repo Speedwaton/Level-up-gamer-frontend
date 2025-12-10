@@ -30,7 +30,7 @@ const AdminReports = () => {
     anchor.click();
     document.body.removeChild(anchor);
     URL.revokeObjectURL(url);
-    window.alert('✅ Datos exportados exitosamente');
+    window.alert('Datos exportados exitosamente');
   };
 
   const handleReport = () => {
@@ -40,14 +40,14 @@ const AdminReports = () => {
         <h1 style="color: #007bff; text-align: center;">Level-Up Gamer - Reporte Administrativo</h1>
         <p style="text-align: center; color: #666;">Fecha: ${fechaActual}</p>
         <hr />
-        <h2>📊 Estadísticas Generales</h2>
+        <h2>Estadisticas Generales</h2>
         <ul>
           <li><strong>Total de Usuarios:</strong> ${stats.totalUsuarios}</li>
           <li><strong>Total de Productos:</strong> ${products.length}</li>
           <li><strong>Ventas Totales:</strong> ${stats.totalVentas.toLocaleString('es-CL')}</li>
           <li><strong>Stock Total Estimado:</strong> ${stats.stockTotal}</li>
         </ul>
-        <h2>📦 Distribución por Categorías</h2>
+        <h2>Distribucion por Categorias</h2>
         <ul>
           ${Object.entries(stats.categorias)
             .map(([cat, count]) => `<li><strong>${cat}:</strong> ${count} productos</li>`)
@@ -61,7 +61,7 @@ const AdminReports = () => {
     const windowReport = window.open('', '_blank');
     windowReport.document.write(reporteHTML);
     windowReport.document.close();
-    window.alert('📄 Reporte generado. Para guardar como PDF utiliza las opciones de impresión de tu navegador.');
+    window.alert('Reporte generado. Para guardar como PDF utiliza las opciones de impresion de tu navegador.');
   };
 
   return (
@@ -69,7 +69,7 @@ const AdminReports = () => {
       <div className="row g-4">
         <div className="col-12 col-lg-6">
           <div className="card bg-dark border-primary h-100">
-            <div className="card-header bg-primary text-white">📊 Resumen de ventas</div>
+            <div className="card-header bg-primary text-white">Resumen de ventas</div>
             <div className="card-body">
               <p>
                 <strong>Total vendido:</strong>{' '}

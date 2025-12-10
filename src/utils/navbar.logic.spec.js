@@ -1,23 +1,25 @@
+import './navbar.logic';
+
 describe('Navbar.logic (window.NavbarLogic)', function () {
   // Por seguridad: acceder SIEMPRE vía window.NavbarLogic sin destructuring
 
   // toggleMenu: invierte el estado
   it('toggleMenu invierte false -> true', function () {
-    expect(window.NavbarLogic.toggleMenu(false)).toBeTrue();
+    expect(window.NavbarLogic.toggleMenu(false)).toBe(true);
   });
   it('toggleMenu invierte true -> false', function () {
-    expect(window.NavbarLogic.toggleMenu(true)).toBeFalse();
+    expect(window.NavbarLogic.toggleMenu(true)).toBe(false);
   });
   it('toggleMenu trata undefined como false y retorna true', function () {
-    expect(window.NavbarLogic.toggleMenu(undefined)).toBeTrue();
+    expect(window.NavbarLogic.toggleMenu(undefined)).toBe(true);
   });
 
   // closeMenu: siempre cierra el menú
   it('closeMenu siempre devuelve false', function () {
-    expect(window.NavbarLogic.closeMenu()).toBeFalse();
+    expect(window.NavbarLogic.closeMenu()).toBe(false);
   });
   it('closeMenu ignora entradas no utilizadas', function () {
-    expect(window.NavbarLogic.closeMenu('cualquier-cosa')).toBeFalse();
+    expect(window.NavbarLogic.closeMenu('cualquier-cosa')).toBe(false);
   });
   it('closeMenu es idempotente', function () {
     expect(window.NavbarLogic.closeMenu()).toBe(window.NavbarLogic.closeMenu());
@@ -59,22 +61,22 @@ describe('Navbar.logic (window.NavbarLogic)', function () {
 
   // buildMenu: estructura de visibilidad según usuario
   it('buildMenu: sin usuario -> showAuthLinks=true, showProfile=false, showAdmin=false', function () {
-    var cfg = window.NavbarLogic.buildMenu(null);
-    expect(cfg.showAuthLinks).toBeTrue();
-    expect(cfg.showProfile).toBeFalse();
-    expect(cfg.showAdmin).toBeFalse();
-    expect(Array.isArray(cfg.baseLinks)).toBeTrue();
+   var cfg = window.NavbarLogic.buildMenu(null);
+    expect(cfg.showAuthLinks).toBe(true);
+    expect(cfg.showProfile).toBe(false);
+    expect(cfg.showAdmin).toBe(false);
+    expect(Array.isArray(cfg.baseLinks)).toBe(true);
     expect(cfg.baseLinks.length).toBeGreaterThanOrEqual(5);
   });
   it('buildMenu: usuario no admin -> auth=false, profile=true, admin=false', function () {
-    var cfg = window.NavbarLogic.buildMenu({ nombre: 'Ada', esAdmin: false });
-    expect(cfg.showAuthLinks).toBeFalse();
-    expect(cfg.showProfile).toBeTrue();
-    expect(cfg.showAdmin).toBeFalse();
+   var cfg = window.NavbarLogic.buildMenu({ nombre: 'Ada', esAdmin: false });
+    expect(cfg.showAuthLinks).toBe(false);
+    expect(cfg.showProfile).toBe(true);
+    expect(cfg.showAdmin).toBe(false);
   });
   it('buildMenu: usuario admin -> admin=true', function () {
-    var cfg = window.NavbarLogic.buildMenu({ nombre: 'Root', esAdmin: true });
-    expect(cfg.showAdmin).toBeTrue();
+   var cfg = window.NavbarLogic.buildMenu({ nombre: 'Root', esAdmin: true });
+    expect(cfg.showAdmin).toBe(true);
   });
 
   // handleLogout: llama logout y luego navigate con destino
@@ -82,19 +84,19 @@ describe('Navbar.logic (window.NavbarLogic)', function () {
     var calls = { logout: 0, nav: [] };
     function logoutFn() { calls.logout++; }
     function navigateFn(path) { calls.nav.push(path); }
-    var target = window.NavbarLogic.handleLogout(logoutFn, navigateFn);
+   var target = window.NavbarLogic.handleLogout(logoutFn, navigateFn);
     expect(target).toBe('/');
     expect(calls.logout).toBe(1);
     expect(calls.nav).toEqual(['/']);
   });
   it('handleLogout tolera funciones faltantes y retorna la ruta', function () {
-    var target = window.NavbarLogic.handleLogout(null, null);
+   var target = window.NavbarLogic.handleLogout(null, null);
     expect(target).toBe('/');
   });
   it('handleLogout permite ruta personalizada', function () {
     var captured = null;
     function navigateFn(p) { captured = p; }
-    var target = window.NavbarLogic.handleLogout(function(){}, navigateFn, '/adios');
+   var target = window.NavbarLogic.handleLogout(function(){}, navigateFn, '/adios');
     expect(target).toBe('/adios');
     expect(captured).toBe('/adios');
   });

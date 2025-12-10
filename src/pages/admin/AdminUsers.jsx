@@ -6,7 +6,7 @@ const AdminUsers = () => {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="text-primary">👥 Gestión de usuarios</h3>
+        <h3 className="text-primary">Gestion de usuarios</h3>
         <span className="badge bg-info">{users.length} registrados</span>
       </div>
       <div className="table-responsive">

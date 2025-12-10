@@ -16,9 +16,9 @@ api.interceptors.request.use(
     const token = sessionStorage.getItem('authToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('🔐 Token enviado en petición:', config.url);
+      console.log('Token enviado en peticion:', config.url);
     } else {
-      console.warn('⚠️ No hay token para:', config.url);
+      console.warn('No hay token para:', config.url);
     }
     return config;
   },
@@ -28,12 +28,12 @@ api.interceptors.request.use(
 // Interceptor para manejar respuestas y errores
 api.interceptors.response.use(
   response => {
-    console.log('✅ Respuesta exitosa:', response.config.url, response.data);
+    console.log('Respuesta exitosa:', response.config.url, response.data);
     return response;
   },
   error => {
     if (error.response) {
-      console.error('❌ Error en respuesta:', {
+      console.error('Error en respuesta:', {
         url: error.config.url,
         status: error.response.status,
         data: error.response.data
@@ -41,10 +41,10 @@ api.interceptors.response.use(
       
       // Si es 401 o 403, el token no es válido o no tiene permisos
       if (error.response.status === 401 || error.response.status === 403) {
-        console.error('🚫 Acceso denegado. Token inválido o sin permisos de admin.');
+        console.error('Acceso denegado. Token invalido o sin permisos de admin.');
       }
     } else {
-      console.error('❌ Error sin respuesta:', error.message);
+      console.error('Error sin respuesta:', error.message);
     }
     return Promise.reject(error);
   }

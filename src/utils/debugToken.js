@@ -3,7 +3,7 @@ export const debugToken = () => {
   const token = sessionStorage.getItem('authToken');
   
   if (!token) {
-    console.log('❌ No hay token en sessionStorage');
+    console.log('No hay token en sessionStorage');
     return;
   }
 
@@ -12,14 +12,14 @@ export const debugToken = () => {
     const payload = token.split('.')[1];
     const decoded = JSON.parse(atob(payload));
     
-    console.log('🔍 Token decodificado:', decoded);
-    console.log('📧 Email:', decoded.sub);
-    console.log('👑 Es Admin:', decoded.admin);
-    console.log('⏰ Expira:', new Date(decoded.exp * 1000).toLocaleString());
+    console.log('Token decodificado:', decoded);
+    console.log('Email:', decoded.sub);
+    console.log('Es Admin:', decoded.admin);
+    console.log('Expira:', new Date(decoded.exp * 1000).toLocaleString());
     
     return decoded;
   } catch (error) {
-    console.error('❌ Error al decodificar token:', error);
+    console.error('Error al decodificar token:', error);
   }
 };
 
